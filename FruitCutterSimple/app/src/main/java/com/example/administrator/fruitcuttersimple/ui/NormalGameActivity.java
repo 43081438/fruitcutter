@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.example.administrator.fruitcuttersimple.MyApplication;
 import com.example.administrator.fruitcuttersimple.R;
 import com.example.administrator.fruitcuttersimple.bean.GameResultEntity;
 import com.example.administrator.fruitcuttersimple.fruitcutter.AnySurfaceView;
@@ -22,25 +24,63 @@ public class NormalGameActivity extends Activity {
     private GameResultEntity.GameEntity gameEntity;
     private AnySurfaceView any_surface_view;
     private RelativeLayout rl_fruit_cutter;
+    private TextView tv_count;
+    private int totalTime = 3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //setContentView(any_surface_view);
         setContentView(R.layout.activity_normal_game);
         initFindViewByID();
+
         initData();
+        init();
 
 
+    }
+
+    public void init(){
+        MyApplication.getUIHandler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (totalTime > 1) {
+                    totalTime--;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_count.setText(totalTime + "");
+                        }
+                    });
+                    MyApplication.getUIHandler().postDelayed(this, 1000);
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            tv_count.setVisibility(View.GONE);
+                            totalTime = 3;
+                            any_surface_view = new AnySurfaceView(getActivity(),gameEntity);
+                            rl_fruit_cutter.addView(any_surface_view);
+                            //initView();
+                        }
+                    });
+                }
+            }
+        }, 1000);
+    }
+
+    public Activity getActivity(){
+        return this;
     }
 
     public void initFindViewByID(){
         //any_surface_view = (AnySurfaceView) findViewById(R.id.any_surface_view);
         rl_fruit_cutter = (RelativeLayout) findViewById(R.id.rl_fruit_cutter);
+        tv_count = (TextView) findViewById(R.id.tv_count);
     }
     public void initData(){
         //Bundle bundle = getIntent().getBundleExtra("INTENT_BUNDLE");
         //gameEntity = (GameResultEntity.GameEntity) bundle.getSerializable("INTENT_OBJECT");
-        GameResultEntity.GameEntity gameEntity = new GameResultEntity.GameEntity();
+        gameEntity = new GameResultEntity.GameEntity();
         List<GameResultEntity.GameEntity.GameItemEntity> gameItemEntityList = new ArrayList<GameResultEntity.GameEntity.GameItemEntity>();
         //初始化Spirites链表
         gameEntity.setType("1");
@@ -75,7 +115,6 @@ public class NormalGameActivity extends Activity {
         }
         gameEntity.setItem(gameItemEntityList);
         //((AnySurfaceView)any_surface_view).setData(gameEntity);
-        any_surface_view = new AnySurfaceView(this,gameEntity);
-        rl_fruit_cutter.addView(any_surface_view);
+
     }
 }

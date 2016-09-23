@@ -148,7 +148,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
         //初始化画笔
         mPaint = new Paint();
         mPaint.setColor(Color.WHITE);
-        mPaint.setStrokeWidth(15);
+        mPaint.setStrokeWidth(8);
         //初始化mousePos
         mousePos = new PointF();
         //初始化计时器
@@ -298,7 +298,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
     private void pressMove ( MotionEvent event ){
         PointF position = new PointF(event.getX(), event.getY());
         synchronized (mBladeTrack){
-            if( mBladeTrack.size() > 10){
+            if( mBladeTrack.size() > 15){
                 mBladeTrack.remove(0);
             }
             mBladeTrack.add(position);

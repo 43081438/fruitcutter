@@ -3,6 +3,16 @@
     android:id="@+id/rl_fruit_cutter"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="150px"
+        android:textSize="140px"
+        android:text="3"
+        android:visibility="visible"
+        android:layout_height="wrap_content"
+        />
     <!--<com.example.administrator.fruitcuttersimple.fruitcutter.AnySurfaceView
         android:id="@+id/any_surface_view"
         android:layout_width="match_parent"
