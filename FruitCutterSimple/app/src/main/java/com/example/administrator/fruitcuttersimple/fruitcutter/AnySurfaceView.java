@@ -98,12 +98,14 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
        // mThread.start();
     }
 
-    public AnySurfaceView(Context context,GameResultEntity.GameEntity gameEntity) {
+    public AnySurfaceView(Context context,GameResultEntity.GameEntity gameEntity,Bitmap[] fruitBitmap,Bitmap[] fruitAfterCutBitmap) {
         super(context);
         this.mContext = context;
         this.numOfFruitType = gameEntity.getItem().size();
         this.numOfFruitAfterCutType = gameEntity.getItem().size()*2;
         this.gameEntity = gameEntity;
+        this.fruitBitmap = fruitBitmap;
+        this.fruitAfterCutBitmap = fruitAfterCutBitmap;
         WindowManager wm = (WindowManager) mContext
                 .getSystemService(Context.WINDOW_SERVICE);
         screenWidth = wm.getDefaultDisplay().getWidth();
@@ -132,9 +134,9 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
                     }
                 });
         //初始化水果Bitmap数组以及被切后的水果Bitmap数组
-        fruitBitmap = new Bitmap[ numOfFruitType ];
-        fruitAfterCutBitmap = new Bitmap[ numOfFruitAfterCutType ];
-        initFruitBitmapArray( context );
+        //fruitBitmap = new Bitmap[ numOfFruitType ];
+        //fruitAfterCutBitmap = new Bitmap[ numOfFruitAfterCutType ];
+        //initFruitBitmapArray( context );
         //初始化inplementThread
         inplementThread = new InplementThread();
         mThread = new Thread(inplementThread);
@@ -170,7 +172,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
         initFruitBitmapDefault();
         for(int index = 0 ;index<gameEntity.getItem().size();index++){
             GameResultEntity.GameEntity.GameItemEntity gameItemEntity = gameEntity.getItem().get(index);
-            initFruitBitmap( context, 0, gameItemEntity.getImg(),gameItemEntity.getClick_img(),gameItemEntity.getClick_img());
+            initFruitBitmap( context, index, gameItemEntity.getImg(),gameItemEntity.getClick_img(),gameItemEntity.getClick_img());
         }
     }
 
@@ -217,7 +219,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
                     }
                 });
         //初始化被切开水果
-        Glide.with(getContext()).load(fruitURL)
+        Glide.with(getContext()).load(fruitAfterURL_2)
                 .asBitmap()
                 .fitCenter()
                 .into(new SimpleTarget<Bitmap>(150, 150) {
