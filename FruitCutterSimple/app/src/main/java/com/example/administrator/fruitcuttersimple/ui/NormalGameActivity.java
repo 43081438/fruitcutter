@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 类描述：
+ * 类描述：master
  * 创建人：quzongyang
  * 创建时间：2016/9/21. 14:28
  * 版本：
