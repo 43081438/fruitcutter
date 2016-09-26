@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
 
+import com.example.administrator.fruitcuttersimple.bean.BaseEntity;
+
 /**
  * 类名称：
  * 类描述：
@@ -11,7 +13,7 @@ import android.graphics.Point;
  * 创建时间：2016/9/23. 14:50
  * 版本：
  */
-public class Spirite {
+public class Spirite extends BaseEntity{
 
     //加速度
     private final static float accelerateY = 3;
@@ -35,7 +37,7 @@ public class Spirite {
     //被切后另一半水果的速度和位置
     private Point posTwo;
     private Point velocityTwo;
-
+    public int position;
 
     //切中之前 -- 改变图片坐标（移动）
     private void resetPos(){

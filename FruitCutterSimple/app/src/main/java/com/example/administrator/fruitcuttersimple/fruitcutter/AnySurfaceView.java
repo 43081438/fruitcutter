@@ -1,5 +1,8 @@
 package com.example.administrator.fruitcuttersimple.fruitcutter;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -11,11 +14,18 @@ import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -25,6 +35,7 @@ import com.example.administrator.fruitcuttersimple.R;
 import com.example.administrator.fruitcuttersimple.bean.GameResultEntity;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 /**
@@ -78,6 +89,14 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
     private Spirite spirite;
     //声明Spirite链表
     private ArrayList<Spirite> spiritesList;
+    private int currentPosition = 0;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            Spirite barrage = (Spirite) msg.getData().getSerializable("currentFruit");
+            Toast.makeText(mContext,barrage.position+"",Toast.LENGTH_SHORT).show();
+        }
+    };
     /*public AnySurfaceView(Context context) {
         super(context);
 
@@ -239,13 +258,24 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
     private void genSpirite(){
         if( randomTimer.isTimeUp() ){
             spirite = new Spirite( bitmapGroup );
-
+            spirite.position = currentPosition;
+            currentPosition++;
             spiritesList.add( spirite );
 
             if( spiritesList.size() > 10 ){
                 spiritesList.remove( 0 );
             }
         }
+        /*if( randomTimer.isTimeUp() ){
+            spirite = new Spirite( bitmapGroup );
+            spirite.position = currentPosition;
+            currentPosition++;
+            spiritesList.add( spirite );
+
+            if( spiritesList.size() > 10 ){
+                spiritesList.remove( 0 );
+            }
+        }*/
     }
 
     //画水果
@@ -330,6 +360,14 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
             if ( mouseY>objectUp && mouseY<objectBottom ){
                 if( !spirite.getCUT() ){
                     //soundPool.play( cutSound[ randomGenerator.getCutSoundInt() ], 1, 1, 2, 0, 1 );
+                    Message message = new Message();
+                    Bundle bundle = new Bundle();
+                    //GameResultEntity.GameEntity.GameItemEntity gameEntity = date.get(nowIndex);
+                    //gameEntity.setIndex(nowIndex);
+                    bundle.putSerializable("currentFruit",spirite);
+                    //nowIndex ++;
+                    message.setData(bundle);
+                    handler.sendMessage(message);
                 }
                 spirite.setCUT( true );
                 return true;

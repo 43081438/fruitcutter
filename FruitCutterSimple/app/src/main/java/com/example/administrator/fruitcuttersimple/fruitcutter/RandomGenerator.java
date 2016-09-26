@@ -36,7 +36,7 @@ public class RandomGenerator {
 
             return new Point( x, y );
         }else {
-            int x = 870 + new Random().nextInt(200);
+            int x = 1070 + new Random().nextInt(200);
             int y = 790 + new Random().nextInt(21);
 
             return new Point( x, y );
