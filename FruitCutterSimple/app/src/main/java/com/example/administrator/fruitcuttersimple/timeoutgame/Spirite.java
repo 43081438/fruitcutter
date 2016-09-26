@@ -50,9 +50,11 @@ public class Spirite extends BaseEntity{
 
     //切中之后 -- 改变图片坐标
     public void resetPosAfterCut(){
-        posTwo.x += velocityTwo.x;
+        //posTwo.x += velocityTwo.x;
+        //posTwo.y += velocityTwo.y;
+        //velocityTwo.y += accelerateY;
+        posTwo.x = posTwo.x+velocityTwo.x+velocityTwo.x;
         posTwo.y += velocityTwo.y;
-
         velocityTwo.y += accelerateY;
     }
 
