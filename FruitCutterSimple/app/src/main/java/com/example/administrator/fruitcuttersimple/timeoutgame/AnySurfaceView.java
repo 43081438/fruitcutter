@@ -149,95 +149,13 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
         randomGenerator = new RandomGenerator();
     }
 
-    /**
-     * 初始化水果图片背景
-     * @param context
-     */
-    private void initFruitBitmapArray( Context context){
-        initFruitBitmapDefault();
-        for(int index = 0 ;index<gameEntity.getItem().size();index++){
-            GameResultEntity.GameEntity.GameItemEntity gameItemEntity = gameEntity.getItem().get(index);
-            initFruitBitmap( context, index, gameItemEntity.getImg(),gameItemEntity.getClick_img(),gameItemEntity.getClick_img());
-        }
-    }
-
-    private void initFruitBitmapDefault(){
-        for(int index = 0 ;index<gameEntity.getItem().size();index++){
-            fruitBitmap[ index ] = BitmapFactory.decodeResource( mContext.getResources(), R.drawable.apple);
-            fruitAfterCutBitmap[ index*2 ] = BitmapFactory.decodeResource( mContext.getResources(), R.drawable.applep1);
-            fruitAfterCutBitmap[ index*2+1 ] = BitmapFactory.decodeResource( mContext.getResources(), R.drawable.applep2);
-        }
-    }
-
-    /**
-     * 初始化Bitmap方法
-     */
-    private void initFruitBitmap(final Context context, final int index, String fruitURL, String fruitAfterURL_1, String fruitAfterURL_2 ){
-        //初始化正常水果
-        Glide.with(getContext()).load(fruitURL)
-                .asBitmap()
-                .fitCenter()
-                .into(new SimpleTarget<Bitmap>(150, 150) {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-                        fruitBitmap[ index ] = resource;
-                    }
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
-                        fruitBitmap[ index ] = BitmapFactory.decodeResource( context.getResources(), R.drawable.apple);
-                    }
-                });
-        //初始化被切开水果
-        Glide.with(getContext()).load(fruitAfterURL_1)
-                .asBitmap()
-                .fitCenter()
-                .into(new SimpleTarget<Bitmap>(150, 150) {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-                        fruitAfterCutBitmap[ index*2 ] = resource;
-                    }
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
-                        fruitAfterCutBitmap[ index*2 ] = BitmapFactory.decodeResource( context.getResources(), R.drawable.applep1);
-                    }
-                });
-        //初始化被切开水果
-        Glide.with(getContext()).load(fruitAfterURL_2)
-                .asBitmap()
-                .fitCenter()
-                .into(new SimpleTarget<Bitmap>(150, 150) {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-                        fruitAfterCutBitmap[ index*2+1 ] = resource;
-                    }
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
-                        fruitAfterCutBitmap[ index*2+1 ] = BitmapFactory.decodeResource( context.getResources(), R.drawable.applep2);;
-                    }
-                });
-    }
-
     //生成水果
     private void genSpirite(){
-        /*if( randomTimer.isTimeUp() ){
-            spirite = new Spirite( bitmapGroup,currentPosition);
-            spirite.position = currentPosition;
-            currentPosition++;
-            spiritesList.add( spirite );
-
-            if( spiritesList.size() > 10 ){
-                spiritesList.remove( 0 );
-            }
-        }*/
         if( randomTimer.isTimeUp() ){
             spirite = new Spirite( bitmapGroup );
             spirite.position = currentPosition;
             currentPosition++;
             spiritesList.add( spirite );
-
             if( spiritesList.size() > 10 ){
                 spiritesList.remove( 0 );
             }
