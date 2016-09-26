@@ -400,10 +400,16 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
                         drawCount(canvas);
                         //画倒计时板
                         timer.draw( canvas );
-                    } else {
-                        //Toast.makeText(mContext,"time out",Toast.LENGTH_SHORT).show();
-                        //modeOneResult(canvas);
                     }
+                    /*if ( currentPosition<gameEntity.getItem().size() ) {
+                    //随机画水果
+                    genSpirite();
+                    //画记分板
+                    drawCount(canvas);
+                    //画倒计时板
+                    timer.draw( canvas );
+                    }
+                drawSpirites( canvas );*/
                 //画刀光
                 drawBladeTrack(canvas);
                 //线程解锁
