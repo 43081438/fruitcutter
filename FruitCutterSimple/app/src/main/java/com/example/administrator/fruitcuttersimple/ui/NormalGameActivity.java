@@ -96,7 +96,7 @@ public class NormalGameActivity extends Activity {
         gameEntity.setInterval(1);
         gameEntity.setBack_img("http://imgcdn.xuxian.com/upload/2016/09/22/20160922054447804.jpg");
         gameEntity.setDesc("切水果");
-        for(int index = 0 ; index <20 ;index++){
+        for(int index = 0 ; index <40 ;index++){
             GameResultEntity.GameEntity.GameItemEntity gameItemEntity = new GameResultEntity.GameEntity.GameItemEntity();
             gameItemEntity.setIndex(index);
             if(index%4==0){//炸弹
