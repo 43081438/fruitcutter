@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.example.administrator.fruitcuttersimple.R;
 
 /**
- * 类描述：
+ * 类描述：血量模式（血量耗尽游戏结束）
  * 创建人：quzongyang
  * 创建时间：2016/9/21. 14:28
  * 版本：

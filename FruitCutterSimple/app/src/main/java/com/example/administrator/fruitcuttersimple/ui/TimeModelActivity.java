@@ -16,19 +16,19 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.fruitcuttersimple.MyApplication;
 import com.example.administrator.fruitcuttersimple.R;
 import com.example.administrator.fruitcuttersimple.bean.GameResultEntity;
-import com.example.administrator.fruitcuttersimple.normalgamefruitcutted.AnySurfaceView;
-import com.example.administrator.fruitcuttersimple.normalgamefruitcutted.BitmapGroup;
+import com.example.administrator.fruitcuttersimple.timeoutgame.AnySurfaceView;
+import com.example.administrator.fruitcuttersimple.timeoutgame.BitmapGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 类描述：DEV  普通模式（水果全部切完游戏结束）
+ * 类描述：时间模式（游戏时间到游戏结束）
  * 创建人：quzongyang
- * 创建时间：2016/9/21. 14:28
+ * 创建时间：2016/9/26. 16:52
  * 版本：
  */
-public class NormalGameActivity extends Activity {
+public class TimeModelActivity extends Activity {
     private GameResultEntity.GameEntity gameEntity;
     private AnySurfaceView any_surface_view;
     private RelativeLayout rl_fruit_cutter;
@@ -42,11 +42,13 @@ public class NormalGameActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(any_surface_view);
-        setContentView(R.layout.activity_normal_game);
+        setContentView(R.layout.activity_time_model);
         initFindViewByID();
+
         initData();
         init();
+
+
     }
 
     public void init(){
@@ -88,6 +90,8 @@ public class NormalGameActivity extends Activity {
         tv_count = (TextView) findViewById(R.id.tv_count);
     }
     public void initData(){
+        //Bundle bundle = getIntent().getBundleExtra("INTENT_BUNDLE");
+        //gameEntity = (GameResultEntity.GameEntity) bundle.getSerializable("INTENT_OBJECT");
         gameEntity = new GameResultEntity.GameEntity();
         List<GameResultEntity.GameEntity.GameItemEntity> gameItemEntityList = new ArrayList<GameResultEntity.GameEntity.GameItemEntity>();
         //初始化Spirites链表
@@ -96,7 +100,7 @@ public class NormalGameActivity extends Activity {
         gameEntity.setInterval(1);
         gameEntity.setBack_img("http://imgcdn.xuxian.com/upload/2016/09/22/20160922054447804.jpg");
         gameEntity.setDesc("切水果");
-        for(int index = 0 ; index <20 ;index++){
+        for(int index = 0 ; index <5 ;index++){
             GameResultEntity.GameEntity.GameItemEntity gameItemEntity = new GameResultEntity.GameEntity.GameItemEntity();
             gameItemEntity.setIndex(index);
             if(index%4==0){//炸弹

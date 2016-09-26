@@ -26,6 +26,10 @@
         <activity
             android:screenOrientation="landscape"
             android:name=".ui.NormalGameActivity"/>
+
+        <activity
+            android:screenOrientation="landscape"
+            android:name=".ui.TimeModelActivity"/>
     </application>
 
 </manifest>

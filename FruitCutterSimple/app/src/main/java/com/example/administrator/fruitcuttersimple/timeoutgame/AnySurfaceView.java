@@ -1,5 +1,4 @@
-package com.example.administrator.fruitcuttersimple.normalgamefruitcutted;
-
+package com.example.administrator.fruitcuttersimple.timeoutgame;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,7 +21,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.example.administrator.fruitcuttersimple.MyApplication;
 import com.example.administrator.fruitcuttersimple.R;
 import com.example.administrator.fruitcuttersimple.bean.GameResultEntity;
 
@@ -67,8 +65,8 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
     private Bitmap[] fruitBitmap;
     private Bitmap[] fruitAfterCutBitmap;
     //水果以及被切后种类的数目
-    private int numOfFruitType = 6;
-    private int numOfFruitAfterCutType = numOfFruitType * 2;
+    private int numOfFruitType;
+    private int numOfFruitAfterCutType;
     private GameResultEntity.GameEntity gameEntity;
     //随机生成器
     private RandomGenerator randomGenerator;
@@ -88,25 +86,6 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
             Toast.makeText(mContext,barrage.position+"",Toast.LENGTH_SHORT).show();
         }
     };
-    /*public AnySurfaceView(Context context) {
-        super(context);
-
-    }*/
-
-    public void setNumOfFruitAfterCutType(int numOfFruitAfterCutType) {
-        this.numOfFruitAfterCutType = numOfFruitAfterCutType;
-    }
-
-    public void setNumOfFruitType(int numOfFruitType) {
-        this.numOfFruitType = numOfFruitType;
-    }
-
-    public void setData(GameResultEntity.GameEntity gameEntity){
-        //setNumOfFruitType(gameEntity.getItem().size());
-        //setNumOfFruitAfterCutType(gameEntity.getItem().size()*2);
-
-        // mThread.start();
-    }
 
     public AnySurfaceView(Context context,GameResultEntity.GameEntity gameEntity,Bitmap[] fruitBitmap,Bitmap[] fruitAfterCutBitmap) {
         super(context);
@@ -126,7 +105,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
         modeOneBG = BitmapFactory.decodeResource( mContext.getResources(), R.drawable.redpackage_pop_false);
         //初始化rectF
         rectF = new RectF(0, 0, screenWidth, screenHeight);
-        Glide.with(MyApplication.getInstance()).load("http://10.20.1.1/upload/2016/09/21/20160921120515947.jpg")
+        Glide.with(getContext()).load("http://10.20.1.1/upload/2016/09/21/20160921120515947.jpg")
                 .asBitmap()
                 .fitCenter()
                 .into(new SimpleTarget<Bitmap>(screenWidth, screenHeight) {
@@ -143,10 +122,6 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
                         //modeOneBG = BitmapFactory.decodeResource( mContext.getResources(), R.drawable.redpackage_pop_false);
                     }
                 });
-        //初始化水果Bitmap数组以及被切后的水果Bitmap数组
-        //fruitBitmap = new Bitmap[ numOfFruitType ];
-        //fruitAfterCutBitmap = new Bitmap[ numOfFruitAfterCutType ];
-        //initFruitBitmapArray( context );
         //初始化inplementThread
         inplementThread = new InplementThread();
         mThread = new Thread(inplementThread);
@@ -247,7 +222,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
 
     //生成水果
     private void genSpirite(){
-        if( randomTimer.isTimeUp() ){
+        /*if( randomTimer.isTimeUp() ){
             spirite = new Spirite( bitmapGroup,currentPosition);
             spirite.position = currentPosition;
             currentPosition++;
@@ -256,8 +231,8 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
             if( spiritesList.size() > 10 ){
                 spiritesList.remove( 0 );
             }
-        }
-        /*if( randomTimer.isTimeUp() ){
+        }*/
+        if( randomTimer.isTimeUp() ){
             spirite = new Spirite( bitmapGroup );
             spirite.position = currentPosition;
             currentPosition++;
@@ -266,7 +241,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
             if( spiritesList.size() > 10 ){
                 spiritesList.remove( 0 );
             }
-        }*/
+        }
     }
 
     //画水果
@@ -383,7 +358,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
                 }
                 //1 常规模式
                 canvas.drawBitmap(modeOneBG, null, rectF, null);
-                    /*if ( !timer.isGameOver() ) {
+                    if ( !timer.isGameOver() ) {
                         //随机画水果
                         genSpirite();
                         drawSpirites( canvas );
@@ -391,16 +366,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
                         drawCount(canvas);
                         //画倒计时板
                         timer.draw( canvas );
-                    }*/
-                if ( currentPosition<gameEntity.getItem().size() ) {
-                    //随机画水果
-                    genSpirite();
-                    //画记分板
-                    drawCount(canvas);
-                    //画倒计时板
-                    timer.draw( canvas );
-                }
-                drawSpirites( canvas );
+                    }
                 //画刀光
                 drawBladeTrack(canvas);
                 //线程解锁
