@@ -1,4 +1,4 @@
-package com.example.administrator.fruitcuttersimple.fruitcutter;
+package com.example.administrator.fruitcuttersimple.normalgamefruitcutted;
 
 import android.graphics.Point;
 

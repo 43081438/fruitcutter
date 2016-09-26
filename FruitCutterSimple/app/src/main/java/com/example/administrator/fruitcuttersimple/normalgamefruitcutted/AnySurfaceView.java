@@ -1,10 +1,6 @@
-package com.example.administrator.fruitcuttersimple.fruitcutter;
+package com.example.administrator.fruitcuttersimple.normalgamefruitcutted;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -17,15 +13,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.view.View;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -33,9 +24,13 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.fruitcuttersimple.R;
 import com.example.administrator.fruitcuttersimple.bean.GameResultEntity;
+import com.example.administrator.fruitcuttersimple.normalgamefruitcutted.BitmapGroup;
+import com.example.administrator.fruitcuttersimple.normalgamefruitcutted.RandomGenerator;
+import com.example.administrator.fruitcuttersimple.normalgamefruitcutted.RandomTimer;
+import com.example.administrator.fruitcuttersimple.normalgamefruitcutted.Spirite;
+import com.example.administrator.fruitcuttersimple.normalgamefruitcutted.Timer;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 
 /**
@@ -114,7 +109,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
         //setNumOfFruitType(gameEntity.getItem().size());
         //setNumOfFruitAfterCutType(gameEntity.getItem().size()*2);
 
-       // mThread.start();
+        // mThread.start();
     }
 
     public AnySurfaceView(Context context,GameResultEntity.GameEntity gameEntity,Bitmap[] fruitBitmap,Bitmap[] fruitAfterCutBitmap) {
@@ -257,7 +252,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
     //生成水果
     private void genSpirite(){
         if( randomTimer.isTimeUp() ){
-            spirite = new Spirite( bitmapGroup );
+            spirite = new Spirite( bitmapGroup,currentPosition);
             spirite.position = currentPosition;
             currentPosition++;
             spiritesList.add( spirite );
@@ -392,7 +387,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
                 }
                 //1 常规模式
                 canvas.drawBitmap(modeOneBG, null, rectF, null);
-                    if ( !timer.isGameOver() ) {
+                    /*if ( !timer.isGameOver() ) {
                         //随机画水果
                         genSpirite();
                         drawSpirites( canvas );
@@ -400,16 +395,16 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
                         drawCount(canvas);
                         //画倒计时板
                         timer.draw( canvas );
-                    }
-                    /*if ( currentPosition<gameEntity.getItem().size() ) {
+                    }*/
+                if ( currentPosition<gameEntity.getItem().size() ) {
                     //随机画水果
                     genSpirite();
                     //画记分板
                     drawCount(canvas);
                     //画倒计时板
                     timer.draw( canvas );
-                    }
-                drawSpirites( canvas );*/
+                }
+                drawSpirites( canvas );
                 //画刀光
                 drawBladeTrack(canvas);
                 //线程解锁

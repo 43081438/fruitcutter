@@ -16,14 +16,14 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.example.administrator.fruitcuttersimple.MyApplication;
 import com.example.administrator.fruitcuttersimple.R;
 import com.example.administrator.fruitcuttersimple.bean.GameResultEntity;
-import com.example.administrator.fruitcuttersimple.fruitcutter.AnySurfaceView;
-import com.example.administrator.fruitcuttersimple.fruitcutter.BitmapGroup;
+import com.example.administrator.fruitcuttersimple.normalgamefruitcutted.AnySurfaceView;
+import com.example.administrator.fruitcuttersimple.normalgamefruitcutted.BitmapGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 类描述：DEV
+ * 类描述：DEV  普通模式（水果全部切完游戏结束）
  * 创建人：quzongyang
  * 创建时间：2016/9/21. 14:28
  * 版本：

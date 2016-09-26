@@ -1,6 +1,8 @@
-package com.example.administrator.fruitcuttersimple.fruitcutter;
+package com.example.administrator.fruitcuttersimple.normalgamefruitcutted;
 
 import android.graphics.Bitmap;
+
+import com.example.administrator.fruitcuttersimple.normalgamefruitcutted.RandomGenerator;
 
 /**
  * 类描述：
@@ -19,19 +21,19 @@ public class BitmapGroup {
     //随机生成器
     private RandomGenerator randomGen;
     //生成的随机数
-    private int index;
+    //private int index;
 
 
-    public Bitmap getFruitBitmap() {
-        index = randomGen.getFruitIndex();
+    public Bitmap getFruitBitmap(int index) {
+        //index = randomGen.getFruitIndex();
         return fruitBitmap[ index ];
     }
 
-    public Bitmap getFruitBitmapOne() {
+    public Bitmap getFruitBitmapOne(int index) {
         return fruitAfterCutBitmap[ index*2 ];
     }
 
-    public Bitmap getFruitBitmapTwo() {
+    public Bitmap getFruitBitmapTwo(int index) {
         return fruitAfterCutBitmap[ index*2+1 ];
     }
 

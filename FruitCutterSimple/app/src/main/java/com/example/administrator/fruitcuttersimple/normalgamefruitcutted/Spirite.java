@@ -1,4 +1,4 @@
-package com.example.administrator.fruitcuttersimple.fruitcutter;
+package com.example.administrator.fruitcuttersimple.normalgamefruitcutted;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -113,12 +113,12 @@ public class Spirite extends BaseEntity{
     }
 
     //构造方法
-    public Spirite( BitmapGroup bitmapGroup ){
+    public Spirite(BitmapGroup bitmapGroup, int index){
 
-        fruitBitmap = bitmapGroup.getFruitBitmap();
+        fruitBitmap = bitmapGroup.getFruitBitmap(index);
 
-        fruitBitmapOne = bitmapGroup.getFruitBitmapOne();
-        fruitBitmapTwo = bitmapGroup.getFruitBitmapTwo();
+        fruitBitmapOne = bitmapGroup.getFruitBitmapOne(index);
+        fruitBitmapTwo = bitmapGroup.getFruitBitmapTwo(index);
 
         random = new RandomGenerator();
 
