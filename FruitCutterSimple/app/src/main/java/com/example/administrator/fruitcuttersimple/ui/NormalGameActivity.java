@@ -102,8 +102,9 @@ public class NormalGameActivity extends Activity {
         gameEntity.setBack_img("http://imgcdn.xuxian.com/upload/2016/09/22/20160922054447804.jpg");
         gameEntity.setDesc("切水果");
         for(int index = 0 ; index <20 ;index++){
+            GameResultEntity.GameEntity.GameItemEntity gameItemEntity = new GameResultEntity.GameEntity.GameItemEntity();
+            gameItemEntity.setIndex(index);
             if(index%4==0){//炸弹
-                GameResultEntity.GameEntity.GameItemEntity gameItemEntity = new GameResultEntity.GameEntity.GameItemEntity();
                 gameItemEntity.setImg("http://imgcdn.xuxian.com/upload/2016/09/22/20160922032631801.png");
                 gameItemEntity.setClick_img("http://imgcdn.xuxian.com/upload/2016/09/22/20160922032638901.png");
                 gameItemEntity.setWidth(150);
@@ -114,7 +115,6 @@ public class NormalGameActivity extends Activity {
                 gameItemEntity.setReward_value("183");
                 gameItemEntityList.add(gameItemEntity);
             }else{//红包
-                GameResultEntity.GameEntity.GameItemEntity gameItemEntity = new GameResultEntity.GameEntity.GameItemEntity();
                 gameItemEntity.setImg("http://imgcdn.xuxian.com/upload/2016/09/22/20160922032615957.png");
                 gameItemEntity.setClick_img("http://imgcdn.xuxian.com/upload/2016/09/22/20160922032620571.png");
                 gameItemEntity.setWidth(150);
