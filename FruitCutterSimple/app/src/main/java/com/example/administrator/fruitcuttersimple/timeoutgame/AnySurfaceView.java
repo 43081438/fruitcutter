@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.example.administrator.fruitcuttersimple.MyApplication;
 import com.example.administrator.fruitcuttersimple.R;
 import com.example.administrator.fruitcuttersimple.bean.GameResultEntity;
 
@@ -105,7 +106,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
         modeOneBG = BitmapFactory.decodeResource( mContext.getResources(), R.drawable.redpackage_pop_false);
         //初始化rectF
         rectF = new RectF(0, 0, screenWidth, screenHeight);
-        Glide.with(getContext()).load("http://10.20.1.1/upload/2016/09/21/20160921120515947.jpg")
+        Glide.with(MyApplication.getInstance()).load("http://10.20.1.1/upload/2016/09/21/20160921120515947.jpg")
                 .asBitmap()
                 .fitCenter()
                 .into(new SimpleTarget<Bitmap>(screenWidth, screenHeight) {

@@ -77,36 +77,19 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
 
     private RandomTimer randomTimer;
     //声明Spirite对象
-    private Spirite spirite;
+    private GameResultEntity.GameEntity.GameItemEntity spirite;
     //声明Spirite链表
-    private ArrayList<Spirite> spiritesList;
+    private ArrayList<GameResultEntity.GameEntity.GameItemEntity> spiritesList;
     private int currentPosition = 0;
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            Spirite barrage = (Spirite) msg.getData().getSerializable("currentFruit");
+            GameResultEntity.GameEntity.GameItemEntity barrage = (GameResultEntity.GameEntity.GameItemEntity) msg.getData().getSerializable("currentFruit");
             Toast.makeText(mContext,barrage.position+"",Toast.LENGTH_SHORT).show();
         }
     };
-    /*public AnySurfaceView(Context context) {
-        super(context);
 
-    }*/
 
-    public void setNumOfFruitAfterCutType(int numOfFruitAfterCutType) {
-        this.numOfFruitAfterCutType = numOfFruitAfterCutType;
-    }
-
-    public void setNumOfFruitType(int numOfFruitType) {
-        this.numOfFruitType = numOfFruitType;
-    }
-
-    public void setData(GameResultEntity.GameEntity gameEntity){
-        //setNumOfFruitType(gameEntity.getItem().size());
-        //setNumOfFruitAfterCutType(gameEntity.getItem().size()*2);
-
-        // mThread.start();
-    }
 
     public AnySurfaceView(Context context,GameResultEntity.GameEntity gameEntity,Bitmap[] fruitBitmap,Bitmap[] fruitAfterCutBitmap) {
         super(context);
@@ -143,17 +126,13 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
                         //modeOneBG = BitmapFactory.decodeResource( mContext.getResources(), R.drawable.redpackage_pop_false);
                     }
                 });
-        //初始化水果Bitmap数组以及被切后的水果Bitmap数组
-        //fruitBitmap = new Bitmap[ numOfFruitType ];
-        //fruitAfterCutBitmap = new Bitmap[ numOfFruitAfterCutType ];
-        //initFruitBitmapArray( context );
         //初始化inplementThread
         inplementThread = new InplementThread();
         mThread = new Thread(inplementThread);
         //初始化BitmapGroup
         bitmapGroup = new BitmapGroup( fruitBitmap, fruitAfterCutBitmap );
         //初始化Spirites链表
-        spiritesList = new ArrayList<Spirite>();
+        spiritesList = new ArrayList<GameResultEntity.GameEntity.GameItemEntity>();
 
         //初始化链表
         mBladeTrack = new ArrayList<PointF>();
@@ -174,81 +153,12 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
         randomGenerator = new RandomGenerator();
     }
 
-    /**
-     * 初始化水果图片背景
-     * @param context
-     */
-    private void initFruitBitmapArray( Context context){
-        initFruitBitmapDefault();
-        for(int index = 0 ;index<gameEntity.getItem().size();index++){
-            GameResultEntity.GameEntity.GameItemEntity gameItemEntity = gameEntity.getItem().get(index);
-            initFruitBitmap( context, index, gameItemEntity.getImg(),gameItemEntity.getClick_img(),gameItemEntity.getClick_img());
-        }
-    }
-
-    private void initFruitBitmapDefault(){
-        for(int index = 0 ;index<gameEntity.getItem().size();index++){
-            fruitBitmap[ index ] = BitmapFactory.decodeResource( mContext.getResources(), R.drawable.apple);
-            fruitAfterCutBitmap[ index*2 ] = BitmapFactory.decodeResource( mContext.getResources(), R.drawable.applep1);
-            fruitAfterCutBitmap[ index*2+1 ] = BitmapFactory.decodeResource( mContext.getResources(), R.drawable.applep2);
-        }
-    }
-
-    /**
-     * 初始化Bitmap方法
-     */
-    private void initFruitBitmap(final Context context, final int index, String fruitURL, String fruitAfterURL_1, String fruitAfterURL_2 ){
-        //初始化正常水果
-        Glide.with(getContext()).load(fruitURL)
-                .asBitmap()
-                .fitCenter()
-                .into(new SimpleTarget<Bitmap>(150, 150) {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-                        fruitBitmap[ index ] = resource;
-                    }
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
-                        fruitBitmap[ index ] = BitmapFactory.decodeResource( context.getResources(), R.drawable.apple);
-                    }
-                });
-        //初始化被切开水果
-        Glide.with(getContext()).load(fruitAfterURL_1)
-                .asBitmap()
-                .fitCenter()
-                .into(new SimpleTarget<Bitmap>(150, 150) {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-                        fruitAfterCutBitmap[ index*2 ] = resource;
-                    }
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
-                        fruitAfterCutBitmap[ index*2 ] = BitmapFactory.decodeResource( context.getResources(), R.drawable.applep1);
-                    }
-                });
-        //初始化被切开水果
-        Glide.with(getContext()).load(fruitAfterURL_2)
-                .asBitmap()
-                .fitCenter()
-                .into(new SimpleTarget<Bitmap>(150, 150) {
-                    @Override
-                    public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
-                        fruitAfterCutBitmap[ index*2+1 ] = resource;
-                    }
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
-                        fruitAfterCutBitmap[ index*2+1 ] = BitmapFactory.decodeResource( context.getResources(), R.drawable.applep2);;
-                    }
-                });
-    }
 
     //生成水果
     private void genSpirite(){
         if( randomTimer.isTimeUp() ){
-            spirite = new Spirite( bitmapGroup,currentPosition);
+            spirite = gameEntity.getItem().get(currentPosition);
+            spirite.setBitMapResource(bitmapGroup,currentPosition);
             spirite.position = currentPosition;
             currentPosition++;
             spiritesList.add( spirite );
@@ -273,7 +183,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
     private void drawSpirites( Canvas canvas ){
 
         for( int i=0; i<spiritesList.size(); i++ ){
-            Spirite tempSpirite = spiritesList.get(i);
+            GameResultEntity.GameEntity.GameItemEntity tempSpirite = spiritesList.get(i);
 
             isCut( tempSpirite );
             tempSpirite.drawBeforeCut(canvas);
@@ -336,7 +246,7 @@ public class AnySurfaceView extends SurfaceView implements SurfaceHolder.Callbac
     }
 
     //判断是否切到
-    private boolean isCut( Spirite spirite ){
+    private boolean isCut( GameResultEntity.GameEntity.GameItemEntity spirite ){
 
         Point pos = spirite.getBitmapPos();
         Point size = spirite.getBitmapSize();
