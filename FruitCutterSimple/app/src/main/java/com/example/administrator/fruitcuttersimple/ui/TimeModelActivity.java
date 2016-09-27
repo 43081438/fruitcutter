@@ -149,9 +149,9 @@ public class TimeModelActivity extends Activity {
 
     private void initFruitBitmapDefault(){
         for(int index = 0 ;index<gameEntity.getItem().size();index++){
-            fruitBitmap[ index ] = BitmapFactory.decodeResource( getActivity().getResources(), R.drawable.apple);
-            fruitAfterCutBitmap[ index*2 ] = BitmapFactory.decodeResource( getActivity().getResources(), R.drawable.applep1);
-            fruitAfterCutBitmap[ index*2+1 ] = BitmapFactory.decodeResource( getActivity().getResources(), R.drawable.applep2);
+            fruitBitmap[ index ] = BitmapFactory.decodeResource( getActivity().getResources(), R.drawable.huolongguo);
+            fruitAfterCutBitmap[ index*2 ] = BitmapFactory.decodeResource( getActivity().getResources(), R.drawable.huolongguo1);
+            fruitAfterCutBitmap[ index*2+1 ] = BitmapFactory.decodeResource( getActivity().getResources(), R.drawable.huolongguo2);
         }
     }
 
@@ -171,7 +171,7 @@ public class TimeModelActivity extends Activity {
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
-                        fruitBitmap[ index ] = BitmapFactory.decodeResource( context.getResources(), R.drawable.apple);
+                        fruitBitmap[ index ] = BitmapFactory.decodeResource( context.getResources(), R.drawable.huolongguo);
                     }
                 });
         //初始化被切开水果
@@ -186,7 +186,7 @@ public class TimeModelActivity extends Activity {
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
-                        fruitAfterCutBitmap[ index*2 ] = BitmapFactory.decodeResource( context.getResources(), R.drawable.applep1);
+                        fruitAfterCutBitmap[ index*2 ] = BitmapFactory.decodeResource( context.getResources(), R.drawable.huolongguo1);
                     }
                 });
         //初始化被切开水果
@@ -201,7 +201,7 @@ public class TimeModelActivity extends Activity {
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
-                        fruitAfterCutBitmap[ index*2+1 ] = BitmapFactory.decodeResource( context.getResources(), R.drawable.applep2);;
+                        fruitAfterCutBitmap[ index*2+1 ] = BitmapFactory.decodeResource( context.getResources(), R.drawable.huolongguo2);;
                     }
                 });
     }
