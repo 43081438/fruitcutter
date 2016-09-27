@@ -46,12 +46,12 @@ public class RandomGenerator {
     public Point getVelocity(){
         if( left ){
             int x = 5 + new Random().nextInt(11);
-            int y = -50 - new Random().nextInt(21);
+            int y = -60 - new Random().nextInt(21);
 
             return new Point( x, y );
         }else {
             int x = -5 - new Random().nextInt(11);
-            int y = -40 - new Random().nextInt(21);
+            int y = -50 - new Random().nextInt(21);
 
             return new Point( x, y );
         }
@@ -59,7 +59,7 @@ public class RandomGenerator {
 
     //随机生成时间间隔
     public int getTimeInternal(){
-        return 200 + 100*new Random().nextInt(8);
+        return 400 + 100*new Random().nextInt(8);
     }
     //随机生成短时间时间间隔
     public int getShortInternal(){
